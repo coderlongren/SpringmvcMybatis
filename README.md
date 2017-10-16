@@ -1,21 +1,19 @@
 # SpringmvcMybatis
 ***
 ## mapper文件和 po类均可使用逆向工程生成 
-###直接上代码 逆向工程所需的 generatorConfig.xml已上传 
-执行下面的 java代码可生成 所需的 po包 和 mapper包 包名需自己指定 
+###直接上代码 逆向工程所需的 generatorConfig.xml已上传 执行下面的 java代码可生成 所需的 po包 和 mapper包 包名需自己指定 
   public class GeneratorSqlmap {
   public void generator() throws Exception{
-
-		List<String> warnings = new ArrayList<String>();
-		boolean overwrite = true;
-		//指定 逆向工程配置文件
-		File configFile = new File("generatorConfig.xml"); 
-		ConfigurationParser cp = new ConfigurationParser(warnings);
-		Configuration config = cp.parseConfiguration(configFile);
-		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
-				callback, warnings);
-		myBatisGenerator.generate(null);
+	List<String> warnings = new ArrayList<String>();
+	boolean overwrite = true;
+	//指定 逆向工程配置文件
+	File configFile = new File("generatorConfig.xml"); 
+	ConfigurationParser cp = new ConfigurationParser(warnings);
+	Configuration config = cp.parseConfiguration(configFile);
+	DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+	MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
+			callback, warnings);
+	myBatisGenerator.generate(null);
 
 	  } 
 
