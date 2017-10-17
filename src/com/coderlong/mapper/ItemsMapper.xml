@@ -114,9 +114,23 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from items
-    where id = #{id,jdbcType=INTEGER}
+    delete from items where id = #{id,jdbcType=INTEGER}
   </delete>
+  
+  
+  <delete id="deleteList" parameterType="java.util.List">
+ 		DELETE FROM items where id in
+        <foreach collection="itemsList" index="index" item="item" open="(" separator="," close=")">   
+            #{item}   
+         </foreach>
+  </delete>
+  
+  
+  
+  
+  
+  
+  
   <delete id="deleteByExample" parameterType="com.coderlong.po.ItemsExample" >
     delete from items
     <if test="_parameter != null" >

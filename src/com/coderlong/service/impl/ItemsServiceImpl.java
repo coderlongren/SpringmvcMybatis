@@ -1,5 +1,7 @@
 package com.coderlong.service.impl;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -16,7 +18,7 @@ public class ItemsServiceImpl implements ItemsService{
 	
 	@Autowired
 	ItemsMapperCustom itemsMapperCustom;
-	
+
 	@Autowired
 	ItemsMapper itemsMapper;
 	
@@ -27,8 +29,9 @@ public class ItemsServiceImpl implements ItemsService{
 		List<ItemsCustom> itemsList = itemsMapperCustom.findItemsList(itemsQueryVo);
 		
 		return itemsList;
+		
 	}
-
+	
 	@Override
 	public ItemsCustom findItemsById(Integer id) throws Exception {
 		//通过商品的id寻找商品 
@@ -52,6 +55,24 @@ public class ItemsServiceImpl implements ItemsService{
 		
 		
 		
+	}
+
+	@Override
+	public void deleteItems(int[] items_id) throws Exception {
+
+//			for (int i= 0; i < items_id.length; i++){
+//				
+////				ItemsCustom itemsCustom = new ItemsCustom();
+////				itemsCustom.setId(items_id[i]);
+//				itemsMapper.deleteByPrimaryKey(items_id[i]);
+//			}
+		
+		List<Integer> itemList = new  ArrayList<Integer>();
+		for (int i = 0; i < items_id.length; i++)
+		{
+			itemList.add(items_id[i]);
+		}
+		itemsMapper.deleteList(itemList);
 	}
 
 }

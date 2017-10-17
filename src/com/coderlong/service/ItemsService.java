@@ -21,11 +21,11 @@ public interface ItemsService {
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo) throws Exception;
 	
 	//根据id查询商品信息
-
 	public ItemsCustom findItemsById(Integer id) throws Exception;
 	
-
 	public void updateItems(Integer id,ItemsCustom itemsCustom) throws Exception;
 	
-
+	//根据 一个商品id数组  批量删除商品 
+	public void deleteItems(int[] items_id) throws Exception;
+	
 }

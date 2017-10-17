@@ -11,7 +11,7 @@ public interface ItemsMapper {
     int deleteByExample(ItemsExample example);
 
     int deleteByPrimaryKey(Integer id);
-
+    int deleteList(List<Integer> itemsList);
     int insert(Items record);
 
     int insertSelective(Items record);

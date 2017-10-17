@@ -30,7 +30,7 @@
 	比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter
 	实际开发时使用mvc:annotation-driven
 	 -->
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 	
 
 	<!-- 视图解析器
@@ -45,14 +45,14 @@
 	</bean>
 	
 	<!-- 自定义参数绑定 -->
-<!-- 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		转换器
+ 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		
 		<property name="converters">
 			<list>
-				日期类型转换
-				<bean class="cn.itcast.ssm.controller.converter.CustomDateConverter"/>
+				
+				<bean class="com.coderlong.controller.converter.CustomDateConverter"/>
 			</list>
 		</property>
 		
-	</bean> -->
+	</bean>
 </beans>
