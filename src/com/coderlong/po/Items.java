@@ -2,15 +2,25 @@ package com.coderlong.po;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.coderlong.controller.Validation.ValidGroup1;
+import com.coderlong.controller.Validation.ValidGroup2;
+
 public class Items {
     private Integer id;
-
+    //{} 是标准的国际化语言 
+    //message 是数据回显得 信息 
+    //groups 次校验 是属于哪个分组 
+    
+    @Size(min=1,max=30,message="{item.name.length.error}",groups={ValidGroup1.class})
     private String name;
 
     private Float price;
-
     private String pic;
-
+    
+    @NotNull(message="{item.createtime.error}",groups={ValidGroup2.class})
     private Date createtime;
 
     private String detail;

@@ -7,11 +7,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>修改商品信息</title>
-
+<style type="text/css">
+	.infoError{
+		color:red;
+	}
+</style>
 </head>
 <body> 
+<div class="infoError">
+错误信息 :
+	<c:if test="${allErrors!=null }">
+	<c:forEach items="${allErrors }" var="error">
+	${ error.defaultMessage}<br/>
+</c:forEach>
+</c:if>
+</div>
 
-<form id="itemForm" action="${pageContext.request.contextPath }/items/editItemsSubmit.action" method="post" >
+<form id="itemForm" action="${pageContext.request.contextPath }/items/editItemsSubmit.action" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="${itemsCustom.id }"/>
 修改商品信息：
 <table width="100%" border=1>
@@ -41,6 +53,13 @@
 	<td>商品简介</td>
 	<td>
 	<textarea rows="3" cols="30" name="detail">${itemsCustom.detail }</textarea>
+	</td>
+	<td>
+		<c:if test="${itemsCustom.pic !=null}">
+			<img src="/pic/${itemsCustom.pic}" width=100 height=100/>
+			<br/>
+		</c:if>
+		<input type="file"  name="items_pic"/> 
 	</td>
 </tr>
 <tr>

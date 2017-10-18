@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.coderlong.Custom.Exception.CustomException;
 import com.coderlong.mapper.ItemsMapper;
 import com.coderlong.mapper.ItemsMapperCustom;
 import com.coderlong.po.Items;
@@ -37,6 +38,9 @@ public class ItemsServiceImpl implements ItemsService{
 		//通过商品的id寻找商品 
 		Items items = itemsMapper.selectByPrimaryKey(id);
 		
+		if(items==null){
+			throw new CustomException("找不到此商品!");
+		}
 		ItemsCustom itemsCustom = new ItemsCustom();
 		BeanUtils.copyProperties(items, itemsCustom);
 		

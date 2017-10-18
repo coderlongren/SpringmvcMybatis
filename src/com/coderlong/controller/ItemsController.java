@@ -1,18 +1,28 @@
 package com.coderlong.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.coderlong.Custom.Exception.CustomException;
+import com.coderlong.controller.Validation.ValidGroup1;
+import com.coderlong.controller.Validation.ValidGroup2;
 import com.coderlong.mapper.ItemsMapper;
 import com.coderlong.po.ItemsCustom;
 import com.coderlong.po.ItemsQueryVo;
@@ -69,19 +79,60 @@ public class ItemsController {
 	
 	//@requestParam(value="") int Items_id  在这里还可以制定 required=true 参数是否是必须的
 	public ModelAndView editItems(@RequestParam(value="id") int Items_id) throws Exception{
- 		ItemsCustom itemsCustom = itemsService.findItemsById(Items_id);
-		
+ 		ItemsCustom itemsCustom = itemsService.findItemsById(Items_id);	
+ 		
 		ModelAndView modelAndView  = new ModelAndView();
 		modelAndView.addObject("itemsCustom", itemsCustom);
 		modelAndView.setViewName("items/editItems");
-		
 		return modelAndView;
 		
 	}
 	
 	//商品提交 
+	//@validated 在参数之前 bindingResult 在参数之后  
 	@RequestMapping("/editItemsSubmit")
-	public String  editItemsSubmit(HttpServletRequest request, Integer id ,ItemsCustom itemsCustom) throws Exception{
+	public String  editItemsSubmit(HttpServletRequest request,Model model, Integer id ,
+		 @Validated(value={ValidGroup1.class,ValidGroup2.class})ItemsCustom itemsCustom,
+		 MultipartFile items_pic
+		 ,BindingResult bindingResult) throws Exception{
+		//获取校验信息  
+		if (bindingResult.hasErrors()){
+			List<ObjectError> allErrors = bindingResult.getAllErrors();
+			for (ObjectError objectError:allErrors){
+				System.out.println(objectError.getDefaultMessage());
+				System.out.println("dffffffffffffffffffffffffffffffffffffffffff");
+			}
+			
+			//吧错误信息 返回页面 实行信息回传 
+			model.addAttribute("allErrors", allErrors);
+			
+			return "items/editItems";
+		}
+		
+		if(items_pic != null ){
+			//原始名称
+			String originalFilename = items_pic.getOriginalFilename();
+			//上传图片
+			if(items_pic!=null && originalFilename!=null && originalFilename.length()>0){
+				
+				//存储图片的物理路径
+				String pic_path = "E:\\web_pic\\";
+				
+				//新的图片名称
+				String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+				//新图片
+				File newFile = new File(pic_path+newFileName);
+				
+				//将内存中的数据写入磁盘
+				items_pic.transferTo(newFile);
+				
+				//将新图片名称写到itemsCustom中
+				itemsCustom.setPic(newFileName);
+				
+			}
+		}
+		
+		
 		
 		itemsService.updateItems(id, itemsCustom);
 		return "redirect:queryItems.action";
