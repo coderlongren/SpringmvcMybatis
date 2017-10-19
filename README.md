@@ -57,10 +57,72 @@
 	</typeAliases>
 ---
 ## controller 编写 
+:blush: 这个表情用起来会上瘾啊 
+
+### 我写了三个controller 依次是 ItemsController,JsonController(这个测试json字符串用的)，LoginController 
+login 采用Spring的拦截器 自己写的拦截器需要实现 HandlerInterceptor借口 ，再在springmvc.xml里面注册
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->
+		<!--  设置拦截器的设置-->
+		<!-- 登陆认证拦截器 -->
+
+		<mvc:interceptor>
+			<!-- /**表示所有url包括子url路径 -->
+			<mvc:mapping path="/**"/>
+			<bean class="com.coderlong.Interceptor.HandleInterceptor1"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.coderlong.Interceptor.HandleInterceptor2"></bean>
+		</mvc:interceptor>
+			<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.coderlong.Interceptor.LoginInterception"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 ---
 ## service service.impl 编写 
+	Service.impl功能 按所需书写就可以了。
 ---
 ## 初始化 web.xml 的加载
+###post 乱码过滤器 比起在Servelet 自己配置的乱码过滤器 spring 已经帮我们写好了字符乱码的过滤器 
+	<!-- post乱码过虑器 -->
+		<filter>
+			<filter-name>CharacterEncodingFilter</filter-name>
+			<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>utf-8</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>CharacterEncodingFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+		
+---
+###再以此配置前端控制器 Spring监听器 就可以了 
+		<!-- 使用 spring的监听器  加载spring容器 -->
+		<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/classes/spring/applicationContext-*.xml</param-value>
+		</context-param>
+		<listener>
+			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		</listener>
+			<!-- springmvc前端控制器 -->
+		<servlet>
+			<servlet-name>springmvc</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<!-- contextConfigLocation配置springmvc加载的配置文件（配置处理器映射器、适配器等等） 如果不配置contextConfigLocation，默认加载的是/WEB-INF/servlet名称-serlvet.xml（springmvc-servlet.xml） -->
+			<init-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>classpath:spring/springmvc.xml</param-value>
+			</init-param>
+		</servlet>
+			
+
+
 
 
