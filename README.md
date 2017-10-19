@@ -1,4 +1,4 @@
-# SpringmvcMybatis
+# SpringmvcMybatis:blush::blush::blush::blush:
 ***
 ## mapper文件和 po类均可使用逆向工程生成 
 ###直接上代码 逆向工程所需的 generatorConfig.xml已上传,执行下面的java代码可生成所需的 po包 和 mapper包,包名需自己指定  
@@ -32,7 +32,8 @@
 	}
 ---
 ## springmvc 的配置文件
-###下面一行是 spring自带的 注解驱动 可代替 注解的映射器 和适配器 
+##下面一行是 spring自带的 注解驱动 可代替 注解的映射器 和适配器 
+
   <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 
 
@@ -57,6 +58,7 @@
 	</typeAliases>
 ---
 ## controller 编写 
+<<<<<<< HEAD
 :blush: 这个表情用起来会上瘾啊 
 
 ### 我写了三个controller 依次是 ItemsController,JsonController(这个测试json字符串用的)，LoginController 
@@ -80,6 +82,9 @@ login 采用Spring的拦截器 自己写的拦截器需要实现 HandlerIntercep
 			<bean class="com.coderlong.Interceptor.LoginInterception"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+=======
+	
+>>>>>>> 386bbba0078e166b6c2cb1c2300d40494af846f8
 
 ---
 ## service service.impl 编写 
