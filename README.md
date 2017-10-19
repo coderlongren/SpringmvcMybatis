@@ -1,4 +1,4 @@
-# SpringmvcMybatis
+# SpringmvcMybatis:blush::blush::blush::blush:
 ***
 ## mapper文件和 po类均可使用逆向工程生成 
 ###直接上代码 逆向工程所需的 generatorConfig.xml已上传,执行下面的java代码可生成所需的 po包 和 mapper包,包名需自己指定  
@@ -32,7 +32,8 @@
 	}
 ---
 ## springmvc 的配置文件
-###下面一行是 spring自带的 注解驱动 可代替 注解的映射器 和适配器 
+##下面一行是 spring自带的 注解驱动 可代替 注解的映射器 和适配器 
+
   <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 
 
@@ -57,6 +58,7 @@
 	</typeAliases>
 ---
 ## controller 编写 
+	
 
 ---
 ## service service.impl 编写 
