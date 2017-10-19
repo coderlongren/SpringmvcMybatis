@@ -97,5 +97,26 @@
 		</property>
 	</bean>
 	
+<mvc:interceptors>
+	<!--多个拦截器,顺序执行 -->
+	<!--  设置拦截器的设置-->
+	<!-- 登陆认证拦截器 -->
+
+	<mvc:interceptor>
+		<!-- /**表示所有url包括子url路径 -->
+		<mvc:mapping path="/**"/>
+		<bean class="com.coderlong.Interceptor.HandleInterceptor1"></bean>
+	</mvc:interceptor>
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean class="com.coderlong.Interceptor.HandleInterceptor2"></bean>
+	</mvc:interceptor>
+		<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean class="com.coderlong.Interceptor.LoginInterception"></bean>
+	</mvc:interceptor>
+</mvc:interceptors>
+	
+	
 	
 </beans>
